@@ -27,12 +27,14 @@ def get_shop_list_by_dishes(dishes, person_count):
             for b in cook_book1[m]:
                 y = {'measure': '', 'quantity': ''}
                 x = b.values()
-                final.setdefault(list(x)[0],y)
-                y['quantity'] = (list(x)[1] * person_count)
-                y['measure'] = list(x)[2]
+                if list(x)[0] not in final:
+                    y['quantity'] = (list(x)[1] * person_count)
+                    y['measure'] = list(x)[2]
+                    final.setdefault(list(x)[0],y)
+                else:
+                    final[list(x)[0]]['quantity'] += list(x)[1] * person_count
         else:
             print("В списке блюд утверждённых для банкета, данное блюдо к сожалению отсутствует")
     return print(final)
 
-
-get_shop_list_by_dishes(['Омлет'], 2)
+get_shop_list_by_dishes(['Омлет',"Омлет"],3)
